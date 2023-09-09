@@ -1,8 +1,8 @@
 allure-results/
 screenshots/
 test-output/
-
-
+target/
+test-output-thread/
 ##############################
 ## Java
 ##############################

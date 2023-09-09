@@ -8,9 +8,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.amazon.utils.AppConstants;
+import com.amazon.utils.ElementUtil;
+
 public class AmazonLoginPage {
 	private final WebDriver driver;
-	
+	private ElementUtil eleUtil;
 
 	// 1. By Locators
 	private final By usernameField = By.id("ap_email");
@@ -19,32 +22,38 @@ public class AmazonLoginPage {
 	private final By forgotPasswordLink = By.xpath("//a[normalize-space()='Forgot Password']");
 	private final By signInSubmitButton = By.id("signInSubmit");
 	private final By errorMessageForInvalid = By.xpath("//span[@class='a-list-item']");
-	private final By errorMessageForEmpty = By.xpath("//div[contains(text(),'Enter your email or mobile phone number')]");
+	private final By errorMessageForEmpty = By
+			.xpath("//div[contains(text(),'Enter your email or mobile phone number')]");
 
 	// 2. Constructor of the page class
 	public AmazonLoginPage(WebDriver driver) {
 		this.driver = driver;
+		eleUtil = new ElementUtil(this.driver);
 	}
 
 	// 3. Page actions: features(Behaviors) of the page form of the methods
 	public void enterUsername(String username) {
-		WebElement usernameInput = driver.findElement(usernameField);
-		usernameInput.clear();
-		usernameInput.sendKeys(username);
+		//WebElement usernameInput = driver.findElement(usernameField);
+		 eleUtil.getElement(usernameField);
+		eleUtil.doClear(usernameField);
+		// usernameInput.clear();
+		eleUtil.doSendKeys(usernameField, username);
+		//usernameInput.sendKeys(username);
 	}
 
 	public void clickSignInContinueButton() {
-		driver.findElement(signInContinueButton).click();
+		eleUtil.doClick(signInContinueButton);
 	}
 
 	public void enterPassword(String password) {
-		WebElement passwordInput = driver.findElement(passwordField);
-		passwordInput.clear();
-		passwordInput.sendKeys(password);
+		eleUtil.getElement(passwordField);
+		eleUtil.doClear(passwordField);
+		eleUtil.doSendKeys(passwordField, password);
 	}
 
 	public void clickSignInSubmitButton() {
-		driver.findElement(signInSubmitButton).click();
+		eleUtil.doClick(signInSubmitButton);
+
 	}
 
 	public void waitForElementToBeClickable(By locator) {
@@ -54,6 +63,7 @@ public class AmazonLoginPage {
 
 	public String getErrorMessageForInvalid() {
 		WebElement errorElement = driver.findElement(errorMessageForInvalid);
+		// eleUtil.getElement(errorMessageForInvalid);
 		return errorElement.getText();
 	}
 
@@ -66,7 +76,7 @@ public class AmazonLoginPage {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		WebElement fgtPwdLink = wait.until(ExpectedConditions.visibilityOfElementLocated(forgotPasswordLink));
 		fgtPwdLink.click();
-		//driver.findElement(forgotPasswordLink).click();
+		// driver.findElement(forgotPasswordLink).click();
 		return new AmazonPasswordRecoveryPage(driver);
 	}
 }

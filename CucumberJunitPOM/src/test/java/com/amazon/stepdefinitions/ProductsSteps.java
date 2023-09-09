@@ -47,10 +47,15 @@ public class ProductsSteps {
 			String searchQuery = row.get("search_query");
 			String category = row.get("category");
 			String sortingOption = row.get("sorting_option");
+			searchWithCriteria(searchQuery, category, sortingOption);
 
-			amazonProdPage.searchForProduct(searchQuery);
-			amazonProdPage.filterByCategory(category);
-			amazonProdPage.sortByOption(sortingOption);
 		}
+	}
+
+	public void searchWithCriteria(String searchQuery, String category, String sortingOption) {
+		amazonProdPage.searchForProduct(searchQuery);
+		amazonProdPage.filterByCategory(category);
+		amazonProdPage.sortByOption(sortingOption);
+
 	}
 }

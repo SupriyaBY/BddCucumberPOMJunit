@@ -1,4 +1,5 @@
 package com.amazon.testrunners;
+
 import org.junit.runner.RunWith;
 
 import io.cucumber.junit.Cucumber;
@@ -7,7 +8,7 @@ import io.cucumber.junit.CucumberOptions;
 @RunWith(Cucumber.class)
 
 @CucumberOptions(
-		features = {"src/test/resources/com/amazon/features/products.feature"},
+		features = {"@target/failedScenariosRerun.txt"},
 		//features = {"src/test/resources/com/amazon/features"},
 		glue = {"com/amazon/stepdefinitions", "com/amazon/apphooks"},
 		plugin = {"pretty",
@@ -20,6 +21,8 @@ import io.cucumber.junit.CucumberOptions;
 		
 		)
 
-public class MyTestRunner {
 
+public class RetryRunner {
+
+    
 }
